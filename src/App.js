@@ -1,25 +1,84 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import ToDoList from './todolist';
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+        products: [
+            {
+                id: 1,
+                text: "Face - Wash   ",
+                completed: false,
+            },
+            {
+                id: 2,
+                text: "Brush-teeth",
+                completed: true,
+            },
 
-function App() {
+            {
+                id: 3,
+                text: "Break  - fast ",
+                completed: true,
+            },
+            {
+                id: 4,
+                text: "Office-Work",
+                completed: true,
+            },
+            {
+                id: 5,
+                text: "Exercise-Gym",
+                completed: true,
+            },
+        ]
+    }
+
+
+}
+/*toggleChange = (product) => {
+    // const{products}=this.state;
+    // const index=products.indexOf(product);
+
+    this.setState((prevState) => ({
+        completed: !prevState.completed
+    }), () => {
+        console.log("this.state",);
+
+    });
+
+}
+*/
+
+toggleChange = (id) => {
+  console.log("this.state", this.state);
+    this.setState((prevState) => {
+        const updatedProducts = prevState.products.map((product) => {
+            if (product.id === id) {
+                // Toggle the completed status
+                return { ...product, completed: !product.completed };
+            }
+            return product;
+        });
+
+        return {
+            products: updatedProducts,
+        };
+    });
+}
+render(){
+  const {products}=this.state;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>My Goals</h1>
+         <ToDoList
+         products={products}
+         onToggleChange={this.toggleChange}
+         />   
     </div>
   );
+}
 }
 
 export default App;
